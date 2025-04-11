@@ -3,6 +3,7 @@ package com.example.mediscan2
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.mediscan2.databinding.ActivityMain4Binding
 import androidx.core.net.toUri
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity4 : AppCompatActivity() {
 
@@ -27,16 +29,21 @@ class MainActivity4 : AppCompatActivity() {
             insets
         }
 
-        val imageUriString = intent.getStringExtra("imageUri")
-        if (imageUriString != null) {
-            val imageUri = imageUriString.toUri()
-            val inputStream = contentResolver.openInputStream(imageUri)
-            val receivedBitmap = BitmapFactory.decodeStream(inputStream)
-            inputStream?.close()
+        loadImageFromFirebase()
 
-            // use receivedBitmap (e.g. set to ImageView)
-            binding.imageView.setImageBitmap(receivedBitmap)
+    }
+
+    private fun loadImageFromFirebase() {
+        val dbRef = FirebaseDatabase.getInstance().getReference("images/sharedImage")
+        dbRef.get().addOnSuccessListener { snapshot ->
+            val imageString = snapshot.getValue(String::class.java)
+            if (!imageString.isNullOrEmpty()) {
+                val imageBytes = Base64.decode(imageString, Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                binding.imageView.setImageBitmap(bitmap)
+            }
+        }.addOnFailureListener {
+            // Handle failure
         }
-
     }
 }

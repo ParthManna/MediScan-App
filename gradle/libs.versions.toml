@@ -16,6 +16,9 @@ activity = "1.10.1"
 annotation = "1.6.0"
 zoomage = "1.3.1"
 filamentAndroid = "1.17.1"
+googleGmsGoogleServices = "4.4.2"
+firebaseAnalytics = "22.4.0"
+firebaseDatabase = "21.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,8 +36,11 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 zoomage = { module = "com.jsibbold:zoomage", version.ref = "zoomage" }
 filament-android = { group = "com.google.ar.sceneform", name = "filament-android", version.ref = "filamentAndroid" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebaseAnalytics" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,8 @@ import com.example.mediscan2.databinding.ActivityMain3Binding
 import java.io.File
 import androidx.core.content.ContextCompat
 import androidx.core.app.ActivityCompat
+import com.google.firebase.database.FirebaseDatabase
+import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
 
 
@@ -46,7 +49,7 @@ class MainActivity3 : AppCompatActivity() {
 
         binding.analyzeBtn.setOnClickListener {
             startActivity(Intent(this, MainActivity4::class.java))
-            ImagePass()
+            uploadImageToFirebase()
         }
 
         binding.selectImageBtn.setOnClickListener {
@@ -57,6 +60,8 @@ class MainActivity3 : AppCompatActivity() {
             binding.uploadIcon.visibility = View.GONE
             binding.Icon.visibility = View.VISIBLE
         }
+
+
 
     }
 
@@ -82,6 +87,7 @@ class MainActivity3 : AppCompatActivity() {
             val img = data?.extras?.get("data") as? Bitmap
 
             img?.let {
+                bitmap = it
                 binding.uploadIcon.visibility = View.VISIBLE
                 binding.Icon.visibility = View.GONE
                 binding.uploadIcon.setImageBitmap(it)
@@ -100,24 +106,13 @@ class MainActivity3 : AppCompatActivity() {
         }
     }
 
-    private fun ImagePass(){
-        // Save bitmap to cache directory
-        val file = File(cacheDir, "shared_image.png")
-        val stream = FileOutputStream(file)
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        stream.flush()
-        stream.close()
+    private fun uploadImageToFirebase() {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val imageBytes = byteArrayOutputStream.toByteArray()
+        val imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT)
 
-        val imageUri = FileProvider.getUriForFile(
-            this,
-            "${packageName}.fileprovider", // add authority in manifest
-            file
-        )
-
-        // Send intent with Uri
-        val intent = Intent(this, MainActivity4::class.java).apply {
-            putExtra("imageUri", imageUri.toString())
-        }
-        startActivity(intent)
+        val dbRef = FirebaseDatabase.getInstance().getReference("images")
+        dbRef.child("sharedImage").setValue(imageString)
     }
 }
