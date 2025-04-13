@@ -1,17 +1,16 @@
 package com.example.mediscan2
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mediscan2.databinding.ActivityMain4Binding
+import com.example.mediscan2.ml.Model
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
@@ -21,12 +20,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.common.ops.NormalizeOp
+import org.tensorflow.lite.support.image.ImageProcessor
+import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.net.URL
 
 class MainActivity4 : AppCompatActivity() {
 
     private lateinit var binding: ActivityMain4Binding
     private lateinit var supabaseClient: SupabaseClient
+    private lateinit var bitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +61,6 @@ class MainActivity4 : AppCompatActivity() {
     private fun loadLatestImageFromSupabase() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // List files in the bucket
                 val files = supabaseClient.storage
                     .from("photos")
                     .list()
@@ -63,34 +68,20 @@ class MainActivity4 : AppCompatActivity() {
 
                 if (files.isNotEmpty()) {
                     val latestImage = files.first()
-
-
-                    // Construct public URL manually (alternative to getPublicUrl)
                     val publicUrl = "https://${supabaseClient.supabaseUrl}/storage/v1/object/public/photos/${latestImage.name}"
-
-
-
-                    // Or use the download URL if you need authenticated access
-                    // val downloadUrl = supabaseClient.storage
-                    //     .from("photos")
-                    //     .createSignedUrl(latestImage.name, 60) // expires in 60 seconds
-
-
-
                     val url = URL(publicUrl)
-                    val bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                    bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
                     withContext(Dispatchers.Main) {
                         binding.imageView.setImageBitmap(bitmap)
-
-
-
                         Toast.makeText(
-                                this@MainActivity4,
-                                "Loaded: ${latestImage.name}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                            this@MainActivity4,
+                            "Loaded: ${latestImage.name}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        runModelInference(bitmap)
+                    }
                 } else {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
@@ -111,5 +102,31 @@ class MainActivity4 : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun runModelInference(bitmap: Bitmap) {
+        val labels = application.assets.open("label.txt").bufferedReader().readLines()
+
+        val imageProcessor = ImageProcessor.Builder()
+            .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
+            .add(NormalizeOp(0f, 255f)) // Normalize to 0–1
+            .build()
+
+        var tensorImage = TensorImage(DataType.FLOAT32)
+        tensorImage.load(bitmap)
+        tensorImage = imageProcessor.process(tensorImage)
+
+        val model = Model.newInstance(this)
+
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 3, 224, 224), DataType.FLOAT32)
+        inputFeature0.loadBuffer(tensorImage.buffer)
+
+        val outputs = model.process(inputFeature0)
+        val outputFeature0 = outputs.outputFeature0AsTensorBuffer.floatArray
+
+        val maxIdx = outputFeature0.indices.maxByOrNull { outputFeature0[it] } ?: 0
+        binding.diseaseResultText.text = labels[maxIdx]
+
+        model.close()
     }
 }
