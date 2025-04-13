@@ -19,6 +19,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import org.json.JSONObject
 import org.pytorch.IValue
 import org.pytorch.LiteModuleLoader
 import org.pytorch.Module
@@ -113,30 +115,56 @@ class MainActivity4 : AppCompatActivity() {
     }
 
     private fun runModelInference(bitmap: Bitmap) {
-        val labels = application.assets.open("label.txt")
-            .bufferedReader()
-            .readLines()
-            .filter { it.isNotBlank() }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val url = "http://192.168.0.113:8000/predict"
 
-        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 224, 224, false)
+                // Convert bitmap to JPEG byte array
+                val stream = java.io.ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                val imageBytes = stream.toByteArray()
 
-        val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
-            resizedBitmap,
-            floatArrayOf(0.485f, 0.456f, 0.406f), // Or change to 0f,0f,0f and 1f,1f,1f if not ImageNet
-            floatArrayOf(0.229f, 0.224f, 0.225f)
-        )
+                val client = okhttp3.OkHttpClient()
+                val requestBody = okhttp3.MultipartBody.Builder()
+                    .setType(okhttp3.MultipartBody.FORM)
+                    .addFormDataPart(
+                        "file", "image.jpg",
+                        okhttp3.RequestBody.create("image/jpeg".toMediaTypeOrNull(), imageBytes)
+                    )
+                    .build()
 
-        val outputTensor = module.forward(IValue.from(inputTensor)).toTensor()
-        val scores = outputTensor.dataAsFloatArray
+                val request = okhttp3.Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build()
 
-        val maxIdx = scores.indices.maxByOrNull { scores[it] } ?: 0
+                val response = client.newCall(request).execute()
+                val json = response.body?.string()
+                val jsonObject = JSONObject(json ?: "{}")
 
-        Log.d("PyTorch", "Scores: ${scores.joinToString(", ")}")
-        Log.d("PyTorch", "Predicted Index: $maxIdx")
-        Log.d("PyTorch", "Predicted Label: ${labels.getOrNull(maxIdx) ?: "Unknown"}")
+                val label = jsonObject.optString("prediction", "Unknown")
+                val confidences = jsonObject.optJSONObject("confidences")
 
-        binding.diseaseResultText.text = labels.getOrNull(maxIdx) ?: "Unknown"
+                val confidenceDisplay = StringBuilder()
+                confidences?.let {
+                    for (key in it.keys()) {
+                        val score = it.getDouble(key)
+                        confidenceDisplay.append("$key: ${"%.2f".format(score * 100)}%\n")
+                    }
+                }
+
+                withContext(Dispatchers.Main) {
+                    binding.diseaseResultText.text = "Prediction: $label\n\nConfidences:\n$confidenceDisplay"
+                }
+            } catch (e: Exception) {
+                Log.e("Prediction", "Error calling API", e)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity4, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
+
 
 
     // Helper to get asset file path
