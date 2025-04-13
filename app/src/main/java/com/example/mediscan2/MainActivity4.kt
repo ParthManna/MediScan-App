@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.mediscan2.databinding.ActivityMain4Binding
-import com.example.mediscan2.ml.Model
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
@@ -20,12 +19,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tensorflow.lite.DataType
-import org.tensorflow.lite.support.common.ops.NormalizeOp
-import org.tensorflow.lite.support.image.ImageProcessor
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import org.pytorch.IValue
+import org.pytorch.LiteModuleLoader
+import org.pytorch.Module
+import org.pytorch.Tensor
+import org.pytorch.torchvision.TensorImageUtils
+import java.io.File
 import java.net.URL
 
 class MainActivity4 : AppCompatActivity() {
@@ -33,6 +32,7 @@ class MainActivity4 : AppCompatActivity() {
     private lateinit var binding: ActivityMain4Binding
     private lateinit var supabaseClient: SupabaseClient
     private lateinit var bitmap: Bitmap
+    private lateinit var module: Module
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,16 @@ class MainActivity4 : AppCompatActivity() {
         binding = ActivityMain4Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize Supabase client
+        // Load PyTorch model
+        try {
+            module = LiteModuleLoader.load(assetFilePath("skin_disease.ptl"))
+        } catch (e: Exception) {
+            Log.e("PyTorch", "Model load error", e)
+            Toast.makeText(this, "Model load error", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // Supabase Init
         supabaseClient = createSupabaseClient(
             supabaseUrl = "https://bwbabpydaarigkibyanp.supabase.co",
             supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3YmFicHlkYWFyaWdraWJ5YW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ0NDM4OTAsImV4cCI6MjA2MDAxOTg5MH0.S7M2oDhxKRWYfeuzsoeU0jke-CjYgINY-09kR-G9IT8"
@@ -79,7 +88,6 @@ class MainActivity4 : AppCompatActivity() {
                             "Loaded: ${latestImage.name}",
                             Toast.LENGTH_SHORT
                         ).show()
-
                         runModelInference(bitmap)
                     }
                 } else {
@@ -105,28 +113,42 @@ class MainActivity4 : AppCompatActivity() {
     }
 
     private fun runModelInference(bitmap: Bitmap) {
-        val labels = application.assets.open("label.txt").bufferedReader().readLines()
+        val labels = application.assets.open("label.txt")
+            .bufferedReader()
+            .readLines()
+            .filter { it.isNotBlank() }
 
-        val imageProcessor = ImageProcessor.Builder()
-            .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
-            .add(NormalizeOp(0f, 255f)) // Normalize to 0–1
-            .build()
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 224, 224, false)
 
-        var tensorImage = TensorImage(DataType.FLOAT32)
-        tensorImage.load(bitmap)
-        tensorImage = imageProcessor.process(tensorImage)
+        val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
+            resizedBitmap,
+            floatArrayOf(0.485f, 0.456f, 0.406f), // Or change to 0f,0f,0f and 1f,1f,1f if not ImageNet
+            floatArrayOf(0.229f, 0.224f, 0.225f)
+        )
 
-        val model = Model.newInstance(this)
+        val outputTensor = module.forward(IValue.from(inputTensor)).toTensor()
+        val scores = outputTensor.dataAsFloatArray
 
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 3, 224, 224), DataType.FLOAT32)
-        inputFeature0.loadBuffer(tensorImage.buffer)
+        val maxIdx = scores.indices.maxByOrNull { scores[it] } ?: 0
 
-        val outputs = model.process(inputFeature0)
-        val outputFeature0 = outputs.outputFeature0AsTensorBuffer.floatArray
+        Log.d("PyTorch", "Scores: ${scores.joinToString(", ")}")
+        Log.d("PyTorch", "Predicted Index: $maxIdx")
+        Log.d("PyTorch", "Predicted Label: ${labels.getOrNull(maxIdx) ?: "Unknown"}")
 
-        val maxIdx = outputFeature0.indices.maxByOrNull { outputFeature0[it] } ?: 0
-        binding.diseaseResultText.text = labels[maxIdx]
+        binding.diseaseResultText.text = labels.getOrNull(maxIdx) ?: "Unknown"
+    }
 
-        model.close()
+
+    // Helper to get asset file path
+    private fun assetFilePath(assetName: String): String {
+        val file = File(filesDir, assetName)
+        if (file.exists() && file.length() > 0) return file.absolutePath
+
+        assets.open(assetName).use { inputStream ->
+            file.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+        }
+        return file.absolutePath
     }
 }

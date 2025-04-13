@@ -81,12 +81,12 @@ dependencies {
     implementation(libs.okhttp.v4110)
 
 
-    implementation libs.pytorch.android
-    implementation libs.pytorch.android.torchvision
 
     implementation libs.tensorflow.lite.support.v031
     implementation libs.tensorflow.lite.metadata.v020
 
 
+    implementation libs.pytorch.android.lite
+    implementation libs.pytorch.android.torchvision.lite
 
 }
