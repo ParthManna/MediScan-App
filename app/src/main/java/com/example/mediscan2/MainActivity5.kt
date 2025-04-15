@@ -49,7 +49,6 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.auth
-import io.github.jan.supabase.gotrue.providers.builtin.Email
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import androidx.compose.runtime.livedata.observeAsState
@@ -63,6 +62,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
+import io.github.jan.supabase.gotrue.OtpType
+import io.github.jan.supabase.gotrue.providers.builtin.Email
+import kotlinx.serialization.json.buildJsonObject
 
 class MainActivity5 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -187,6 +191,8 @@ fun EmailAuthScreen(
                 is AuthState.LOADING -> CircularProgressIndicator(modifier = Modifier.padding(16.dp))
                 else -> {}
             }
+
+
         }
     }
 }
@@ -381,30 +387,38 @@ class AuthViewModel : ViewModel() {
         supabaseUrl = "https://bwbabpydaarigkibyanp.supabase.co",
         supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3YmFicHlkYWFyaWdraWJ5YW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ0NDM4OTAsImV4cCI6MjA2MDAxOTg5MH0.S7M2oDhxKRWYfeuzsoeU0jke-CjYgINY-09kR-G9IT8"
     ) {
-        install(Auth)  // Keeping Auth instead of GoTrue
+        install(Auth)
         install(Storage)
     }
 
     suspend fun signUp(email: String, password: String) {
         _authState.value = AuthState.LOADING
         try {
+            // New correct way to sign up with email verification
             supabase.auth.signUpWith(Email) {
                 this.email = email
                 this.password = password
+
+                // Set verification options
+                this.data = buildJsonObject {
+                    put("redirect_to", "mediscan://callback?type=signup")
+                }
             }
-            _authState.value = AuthState.SUCCESS
+
+            _authState.value = AuthState.EMAIL_SENT("Verification email sent to $email")
         } catch (e: Exception) {
             _authState.value = AuthState.ERROR(
                 when {
                     e.message?.contains("Password should be at least") == true ->
                         "Password must be at least 6 characters"
                     e.message?.contains("User already registered") == true ->
-                        "Email already registered"
-                    else -> e.message ?: "Sign up failed"
+                        "Email already registered. Please sign in."
+                    else -> "Sign up failed: ${e.message}"
                 }
             )
         }
     }
+
 
     suspend fun signIn(email: String, password: String) {
         _authState.value = AuthState.LOADING
@@ -427,6 +441,7 @@ class AuthViewModel : ViewModel() {
         }
     }
 
+
     fun clearError() {
         _authState.value = AuthState.IDLE
     }
@@ -437,4 +452,5 @@ sealed class AuthState {
     object LOADING : AuthState()
     object SUCCESS : AuthState()
     data class ERROR(val message: String) : AuthState()
+    data class EMAIL_SENT(val message: String) : AuthState()  // New state
 }

@@ -3,6 +3,7 @@ package com.example.mediscan2
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.se.omapi.Session
 import android.view.Menu
 import android.widget.TextView
 import android.widget.Toast
@@ -26,9 +27,12 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.auth
+import io.github.jan.supabase.gotrue.user.UserSession
 import io.github.jan.supabase.storage.Storage
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +43,10 @@ class MainActivity : AppCompatActivity() {
             supabaseUrl = "https://bwbabpydaarigkibyanp.supabase.co",
             supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3YmFicHlkYWFyaWdraWJ5YW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ0NDM4OTAsImV4cCI6MjA2MDAxOTg5MH0.S7M2oDhxKRWYfeuzsoeU0jke-CjYgINY-09kR-G9IT8"
         ) {
-            install(Auth)
+            install(Auth){
+                alwaysAutoRefresh = true
+                autoLoadFromStorage = true
+            }
             install(Storage)
         }
     }
@@ -55,25 +62,44 @@ class MainActivity : AppCompatActivity() {
 
         handleDeepLinkIntent(intent)
 
-        setupNavigation()
 
-//        lifecycleScope.launch {
-//            try {
-//                val session = supabase.auth.currentSessionOrNull()
-//                if (session == null) {
-//                    startActivity(Intent(this@MainActivity, MainActivity5::class.java))
-//                    finish()
-//                    return@launch
-//                }
-//
-//                // Continue with the rest of your setup
-//                setupNavigation()
-//            } catch (e: Exception) {
-//                Log.e("MainActivity", "Auth check failed", e)
-//                startActivity(Intent(this@MainActivity, MainActivity5::class.java))
-//                finish()
-//            }
-//        }
+        // Handle deep links first
+        handleDeepLinkIntent(intent)
+
+        // Handle deep links first
+        handleDeepLinkIntent(intent)
+
+        // Check authentication state with proper waiting
+        lifecycleScope.launch {
+            try {
+                // Wait for session to be loaded (with timeout)
+                val session = waitForSessionLoad()
+
+                if (session == null) {
+                    Log.d("MainActivity", "No valid session after waiting, redirecting to auth")
+                    startActivity(Intent(this@MainActivity, MainActivity5::class.java))
+                    finish()
+                } else {
+                    Log.d("MainActivity", "Valid session found: ${session.user?.email}")
+                    setupNavigation()
+                }
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Auth check failed", e)
+                startActivity(Intent(this@MainActivity, MainActivity5::class.java))
+                finish()
+            }
+        }
+    }
+
+    private suspend fun waitForSessionLoad(timeoutMillis: Long = 1000L): UserSession? {
+        return withTimeoutOrNull(timeoutMillis) {
+            var session = supabase.auth.currentSessionOrNull()
+            while (session == null) {
+                delay(50) // Small delay between checks
+                session = supabase.auth.currentSessionOrNull()
+            }
+            session
+        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -81,20 +107,66 @@ class MainActivity : AppCompatActivity() {
         handleDeepLinkIntent(intent)
     }
 
+    @OptIn(UnstableApi::class)
     private fun handleDeepLinkIntent(intent: Intent) {
-        val data = intent.data
-        if (data != null && data.scheme == "mediscan" && data.host == "callback") {
-            val accessToken = data.getQueryParameter("access_token")
-            val type = data.getQueryParameter("type")
-            if (!accessToken.isNullOrBlank()) {
-                lifecycleScope.launch {
-                    try {
-                        supabase.auth.exchangeCodeForSession(accessToken)
-                        Toast.makeText(this@MainActivity, "Email confirmed & logged in!", Toast.LENGTH_LONG).show()
-                    } catch (e: Exception) {
-                        Toast.makeText(this@MainActivity, "Login failed: ${e.message}", Toast.LENGTH_LONG).show()
+        intent.data?.let { uri ->
+            Log.d("MainActivity", "Handling deep link: $uri")
+            if (uri.scheme == "mediscan" && uri.host == "callback") {
+                uri.getQueryParameter("access_token")?.let { token ->
+                    lifecycleScope.launch {
+                        try {
+                            // Exchange the token for a session
+                            val session = supabase.auth.exchangeCodeForSession(token)
+                            Log.d("MainActivity", "Session created for: ${session.user?.email}")
+
+                            // Refresh UI
+                            runOnUiThread {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Email verified successfully!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+
+                                // Update navigation drawer with user info
+                                updateUserInfoInNavDrawer()
+                            }
+                        } catch (e: Exception) {
+                            Log.e("MainActivity", "Verification failed", e)
+                            runOnUiThread {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Verification failed: ${e.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    @OptIn(UnstableApi::class)
+    private fun updateUserInfoInNavDrawer() {
+        val navView: NavigationView = binding.navView
+        val headerView = navView.getHeaderView(0)
+        val textViewUserEmail = headerView.findViewById<TextView>(R.id.textView)
+        val textViewUserName = headerView.findViewById<TextView>(R.id.textViewName)
+
+        lifecycleScope.launch {
+            try {
+                val user = supabase.auth.currentUserOrNull()
+                if (user != null) {
+                    val email = user.email ?: ""
+                    val name = email.substringBefore('@').replaceFirstChar { it.uppercaseChar() }
+
+                    runOnUiThread {
+                        textViewUserName.text = name
+                        textViewUserEmail.text = email
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Failed to update user info", e)
             }
         }
     }
