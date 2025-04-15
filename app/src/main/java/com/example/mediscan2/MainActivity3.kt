@@ -23,8 +23,6 @@ import com.example.mediscan2.databinding.ActivityMain3Binding
 import java.io.File
 import androidx.core.content.ContextCompat
 import androidx.core.app.ActivityCompat
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

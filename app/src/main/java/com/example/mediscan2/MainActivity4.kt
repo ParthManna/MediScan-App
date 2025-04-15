@@ -1,5 +1,6 @@
 package com.example.mediscan2
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -12,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.mediscan2.databinding.ActivityMain4Binding
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.gotrue.GoTrue
+import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +35,7 @@ class MainActivity4 : AppCompatActivity() {
     private lateinit var binding: ActivityMain4Binding
     private lateinit var supabaseClient: SupabaseClient
     private lateinit var bitmap: Bitmap
-    private lateinit var module: Module
+//    private lateinit var module: Module
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +43,14 @@ class MainActivity4 : AppCompatActivity() {
         binding = ActivityMain4Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Load PyTorch model
-        try {
-            module = LiteModuleLoader.load(assetFilePath("skin_disease.ptl"))
-        } catch (e: Exception) {
-            Log.e("PyTorch", "Model load error", e)
-            Toast.makeText(this, "Model load error", Toast.LENGTH_LONG).show()
-            return
-        }
+//        // Load PyTorch model
+//        try {
+//            module = LiteModuleLoader.load(assetFilePath("skin_disease.ptl"))
+//        } catch (e: Exception) {
+//            Log.e("PyTorch", "Model load error", e)
+//            Toast.makeText(this, "Model load error", Toast.LENGTH_LONG).show()
+//            return
+//        }
 
         // Supabase Init
         supabaseClient = createSupabaseClient(
@@ -57,13 +58,17 @@ class MainActivity4 : AppCompatActivity() {
             supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3YmFicHlkYWFyaWdraWJ5YW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ0NDM4OTAsImV4cCI6MjA2MDAxOTg5MH0.S7M2oDhxKRWYfeuzsoeU0jke-CjYgINY-09kR-G9IT8"
         ) {
             install(Storage)
-            install(GoTrue)
+            install(Auth)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        binding.learnmore.setOnClickListener {
+            startActivity(Intent(this, MainActivity6::class.java))
         }
 
         loadLatestImageFromSupabase()
@@ -117,7 +122,7 @@ class MainActivity4 : AppCompatActivity() {
     private fun runModelInference(bitmap: Bitmap) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val url = "http://192.168.0.113:8000/predict"
+                val url = "https://skin-disease-api-j0l8.onrender.com/predict/"
 
                 // Convert bitmap to JPEG byte array
                 val stream = java.io.ByteArrayOutputStream()
@@ -142,24 +147,39 @@ class MainActivity4 : AppCompatActivity() {
                 val json = response.body?.string()
                 val jsonObject = JSONObject(json ?: "{}")
 
-                val label = jsonObject.optString("prediction", "Unknown")
-                val confidences = jsonObject.optJSONObject("confidences")
+                val prediction = jsonObject.optString("prediction", "Unknown")
+                val confidences = jsonObject.optJSONObject("confidence_percentages")
 
-                val confidenceDisplay = StringBuilder()
+                // Build the display string
+                val resultString = StringBuilder()
+                resultString.append("Prediction: $prediction\n\nConfidence Percentages:\n")
+
                 confidences?.let {
+                    // Sort by confidence percentage (descending)
+                    val sortedEntries = mutableListOf<Pair<String, Double>>()
                     for (key in it.keys()) {
-                        val score = it.getDouble(key)
-                        confidenceDisplay.append("$key: ${"%.2f".format(score * 100)}%\n")
+                        sortedEntries.add(Pair(key, it.getDouble(key)))
+                    }
+                    sortedEntries.sortByDescending { it.second }
+
+                    // Add each entry to the result string
+                    sortedEntries.forEach { (disease, percentage) ->
+                        resultString.append("${disease}: ${"%.2f".format(percentage)}%\n")
                     }
                 }
 
                 withContext(Dispatchers.Main) {
-                    binding.diseaseResultText.text = "Prediction: $label\n\nConfidences:\n$confidenceDisplay"
+                    binding.diseaseResultText.text = resultString.toString()
+                    binding.diseaseResultText.textSize = 16f // Adjust text size as needed
                 }
             } catch (e: Exception) {
                 Log.e("Prediction", "Error calling API", e)
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@MainActivity4, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@MainActivity4,
+                        "Error: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -167,16 +187,16 @@ class MainActivity4 : AppCompatActivity() {
 
 
 
-    // Helper to get asset file path
-    private fun assetFilePath(assetName: String): String {
-        val file = File(filesDir, assetName)
-        if (file.exists() && file.length() > 0) return file.absolutePath
-
-        assets.open(assetName).use { inputStream ->
-            file.outputStream().use { outputStream ->
-                inputStream.copyTo(outputStream)
-            }
-        }
-        return file.absolutePath
-    }
+//    // Helper to get asset file path
+//    private fun assetFilePath(assetName: String): String {
+//        val file = File(filesDir, assetName)
+//        if (file.exists() && file.length() > 0) return file.absolutePath
+//
+//        assets.open(assetName).use { inputStream ->
+//            file.outputStream().use { outputStream ->
+//                inputStream.copyTo(outputStream)
+//            }
+//        }
+//        return file.absolutePath
+//    }
 }
