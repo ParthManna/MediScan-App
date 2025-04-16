@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Content Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="IL-23/Th17 axis disorder with:
+
+Epidermal turnover accelerated to 3-5 days
+
+Koebner phenomenon (trauma-induced lesions)
+
+NAPSI scoring for nail involvement"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/learnMoreText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:background="@drawable/text_clickable_background"
+        android:drawableStart="@drawable/external_link"
+        android:padding="5dp"
+        android:text="Learn more from trusted sources"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"/>
+
+</LinearLayout>

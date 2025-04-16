@@ -39,6 +39,8 @@ class MainActivity3 : AppCompatActivity() {
 
     private lateinit var binding: ActivityMain3Binding
     private lateinit var bitmap: Bitmap
+    private var isImageUploaded = false // Track if image is uploaded
+
 
     companion object {
         const val CAMERA_REQUEST_CODE = 101
@@ -58,6 +60,10 @@ class MainActivity3 : AppCompatActivity() {
         setSupportActionBar(binding.topAppBar)
 
         binding.analyzeBtn.setOnClickListener {
+            if (!isImageUploaded) {
+                Toast.makeText(this, "Please upload an image first", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             startActivity(Intent(this, MainActivity4::class.java))
         }
 
@@ -70,6 +76,7 @@ class MainActivity3 : AppCompatActivity() {
         binding.cancelBtn.setOnClickListener {
             binding.uploadIcon.visibility = View.GONE
             binding.Icon.visibility = View.VISIBLE
+            binding.analyzeBtn.isEnabled = false
         }
 
 
@@ -88,6 +95,8 @@ class MainActivity3 : AppCompatActivity() {
         binding.uploadIcon.visibility = View.VISIBLE
         binding.Icon.visibility = View.GONE
         binding.uploadIcon.setImageBitmap(bitmap)
+        isImageUploaded = true // Track if image is uploaded
+
 
         if (fileBytes == null) {
             println("Image read failed")

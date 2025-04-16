@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="◼ Treatment Protocols
+    Stage-Specific Therapy:
+
+    Severity	First-Line	Alternatives
+    Mild	Adapalene 0.1% + BPO 2.5%	Azelaic acid 20%
+    Moderate	Oral doxycycline 50mg + Tretinoin 0.05%	Spironolactone 100mg
+    Severe	Isotretinoin 0.5mg/kg + Steroid injection	LED phototherapy"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/learnMoreText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:background="@drawable/text_clickable_background"
+        android:drawableStart="@drawable/external_link"
+        android:padding="5dp"
+        android:text="Learn more from trusted sources"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"/>
+
+</LinearLayout>

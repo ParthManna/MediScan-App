@@ -9,8 +9,9 @@ import androidx.core.content.ContextCompat
 import android.graphics.Typeface
 import android.net.Uri
 import android.widget.LinearLayout
+import androidx.core.net.toUri
 
-class MainActivity6 : AppCompatActivity() {
+class MainActivity7 : AppCompatActivity() {
     private lateinit var overviewTab: TextView
     private lateinit var causesTab: TextView
     private lateinit var treatmentsTab: TextView
@@ -18,7 +19,7 @@ class MainActivity6 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main5)
+        setContentView(R.layout.activity_main6)
 
         // Initialize tab views
         overviewTab = findViewById(R.id.overviewTab)
@@ -39,7 +40,8 @@ class MainActivity6 : AppCompatActivity() {
 
         findViewById<TextView>(R.id.learnMoreText).setOnClickListener {
             // Handle click action here
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://en.wikipedia.org/wiki/Acne"))
+            val intent = Intent(Intent.ACTION_VIEW,
+                "https://en.wikipedia.org/wiki/Atopic_dermatitis".toUri())
             startActivity(intent)
         }
     }
@@ -70,19 +72,19 @@ class MainActivity6 : AppCompatActivity() {
 
         when(tabId) {
             R.id.overviewTab -> {
-                val overView = layoutInflater.inflate(R.layout.acne_overview, contentLayout, false)
+                val overView = layoutInflater.inflate(R.layout.eczema_overview, contentLayout, false)
                 contentLayout.addView(overView)
             }
             R.id.causesTab -> {
-                val causesView = layoutInflater.inflate(R.layout.acne_causes, contentLayout, false)
+                val causesView = layoutInflater.inflate(R.layout.eczema_causes, contentLayout, false)
                 contentLayout.addView(causesView)
             }
             R.id.treatmentsTab -> {
-                val treatmentsView = layoutInflater.inflate(R.layout.acne_treatments, contentLayout, false)
+                val treatmentsView = layoutInflater.inflate(R.layout.eczema_treatments, contentLayout, false)
                 contentLayout.addView(treatmentsView)
             }
             R.id.preventionTab -> {
-                val preventionView = layoutInflater.inflate(R.layout.acne_prevention, contentLayout, false)
+                val preventionView = layoutInflater.inflate(R.layout.eczema_prevention, contentLayout, false)
                 contentLayout.addView(preventionView)
             }
         }

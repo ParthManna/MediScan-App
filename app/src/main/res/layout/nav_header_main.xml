@@ -19,7 +19,7 @@
         android:layout_marginTop="16dp"
         android:contentDescription="@string/nav_header_desc"
         android:scaleType="centerCrop"
-        android:src="@drawable/parthaprofile"
+        android:src="@drawable/baseline_person_2_24"
         app:shapeAppearanceOverlay="@style/CircleImageView" />
 
 

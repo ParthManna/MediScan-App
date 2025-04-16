@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Acne"
+            android:text="SkinCancer"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -65,7 +65,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Acne"
+                        android:text="SkinCancer"
                         android:textColor="@color/black"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -148,27 +148,16 @@
                         android:orientation="vertical">
 
                         <!-- Content Section -->
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="A multifactorial chronic inflammatory disease of pilosebaceous units affecting 85% of adolescents, with increasing adult-onset cases. Characterized by non-inflammatory (comedones) and inflammatory lesions (papules, pustules, nodules)."
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="Chronic inflammatory dermatosis affecting 85% of adolescents, with four pathogenic pillars:
+                            android:text="UV-induced malignancies classified by:
 
-Sebaceous hyperplasia (androgen-driven)
+Keratinocyte (BCC/SCC) vs melanocytic origin
 
-Follicular occlusion (hyperkeratinization)
-
-Microbial dysbiosis (C. acnes dominance)
-
-IL-1α/IL-17 inflammatory cascade"
+Cumulative vs intermittent UV exposure patterns"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
@@ -234,21 +223,21 @@ IL-1α/IL-17 inflammatory cascade"
                         android:background="@drawable/button_background"
                         >
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Why consult a specialist?"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Why consult a specialist?"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="A dermatologist can provide an accurate diagnosis and personalized treatment plan for your condition."
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/gray"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="A dermatologist can provide an accurate diagnosis and personalized treatment plan for your condition."
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/gray"
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 

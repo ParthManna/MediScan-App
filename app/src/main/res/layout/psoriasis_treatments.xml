@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Top Tier Options:
+
+Biologics:
+▶ IL-23 inhibitors (guselkumab) - Q8W dosing
+▶ IL-17A blockers (ixekizumab) - Rapid PASI-100
+
+Small Molecules:
+▶ JAK1/3 inhibitors (upadacitinib 30mg)"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+
+    <TextView
+        android:id="@+id/learnMoreText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:background="@drawable/text_clickable_background"
+        android:drawableStart="@drawable/external_link"
+        android:padding="5dp"
+        android:text="Learn more from trusted sources"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"/>
+
+</LinearLayout>

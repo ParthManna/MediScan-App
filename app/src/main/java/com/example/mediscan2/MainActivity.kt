@@ -66,9 +66,6 @@ class MainActivity : AppCompatActivity() {
         // Handle deep links first
         handleDeepLinkIntent(intent)
 
-        // Handle deep links first
-        handleDeepLinkIntent(intent)
-
         // Check authentication state with proper waiting
         lifecycleScope.launch {
             try {
@@ -159,6 +156,7 @@ class MainActivity : AppCompatActivity() {
                 if (user != null) {
                     val email = user.email ?: ""
                     val name = email.substringBefore('@').replaceFirstChar { it.uppercaseChar() }
+
 
                     runOnUiThread {
                         textViewUserName.text = name

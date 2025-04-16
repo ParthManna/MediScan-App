@@ -27,6 +27,22 @@
         android:theme="@style/Theme.MediScan2"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity11"
+            android:exported="false"
+            android:theme="@style/Theme.MediScan2" />
+        <activity
+            android:name=".MainActivity10"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity9"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity8"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity7"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity6"
             android:exported="false" />
         <activity
@@ -38,11 +54,13 @@
             <!-- Deep link for custom scheme -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="mediscan"
-                    android:host="callback" />
+                    android:host="callback"
+                    android:scheme="mediscan" />
             </intent-filter>
 
             <!-- Optional: For real domain (requires hosting assetlinks.json) -->

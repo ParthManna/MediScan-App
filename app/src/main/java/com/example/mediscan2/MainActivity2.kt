@@ -32,6 +32,7 @@ class MainActivity2 : AppCompatActivity() {
 
     private lateinit var binding: ActivityMain2Binding
     private lateinit var bitmap : Bitmap
+    private var isImageUploaded = false // Track if image is uploaded
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,10 @@ class MainActivity2 : AppCompatActivity() {
 
 
         binding.analyzeBtn.setOnClickListener {
+            if (!isImageUploaded) {
+                Toast.makeText(this, "Please upload an image first", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             startActivity(Intent(this, MainActivity4::class.java))
 
         }
@@ -63,6 +68,7 @@ class MainActivity2 : AppCompatActivity() {
         binding.cancelBtn.setOnClickListener {
             binding.uploadIcon.visibility = View.GONE
             binding.Icon.visibility = View.VISIBLE
+            binding.analyzeBtn.isEnabled = false
         }
 
 
@@ -89,9 +95,10 @@ class MainActivity2 : AppCompatActivity() {
 
         bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
 
-            binding.uploadIcon.visibility = View.VISIBLE
-            binding.Icon.visibility = View.GONE
-            binding.uploadIcon.setImageBitmap(bitmap)
+        binding.uploadIcon.visibility = View.VISIBLE
+        binding.Icon.visibility = View.GONE
+        binding.uploadIcon.setImageBitmap(bitmap)
+        isImageUploaded = true // Track if image is uploaded
 
         if (fileBytes == null) {
             println("Image read failed")

@@ -5,23 +5,12 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <com.jsibbold.zoomage.ZoomageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/baseline_image_24"
-        android:scaleType="centerInside"
-        android:background="#eeeeee"
-        android:contentDescription="Analyzed image"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"/>
-
     <!-- Content Section -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Dermatitis is a general term that describes a common skin irritation. It has many causes and forms and usually involves itchy, dry skin or a rash. Or it might cause the skin to blister, ooze, crust or flake off."
+        android:text="A multifactorial chronic inflammatory disease of pilosebaceous units affecting 85% of adolescents, with increasing adult-onset cases. Characterized by non-inflammatory (comedones) and inflammatory lesions (papules, pustules, nodules)."
         android:textColor="@color/black"
         android:textSize="16sp" />
 
@@ -29,17 +18,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Dermatitis is not contagious, which means it can't be spread from person to person. However, it can make you feel uncomfortable and self-conscious."
+        android:text="Chronic inflammatory dermatosis affecting 85% of adolescents, with four pathogenic pillars:
+
+Sebaceous hyperplasia (androgen-driven)
+
+Follicular occlusion (hyperkeratinization)
+
+Microbial dysbiosis (C. acnes dominance)
+
+IL-1α/IL-17 inflammatory cascade"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="A combination of self-care steps and medications can help you treat dermatitis."
-        android:textColor="@color/black"
-        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/learnMoreText"
