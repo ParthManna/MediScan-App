@@ -5,6 +5,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,8 @@ import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.mediscan2.databinding.ActivityMain4Binding
+import com.google.android.filament.Material
+import com.google.android.material.button.MaterialButton
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
@@ -68,6 +72,12 @@ class MainActivity4 : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        findViewById<MaterialButton>(R.id.backhome).setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java);
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
 
 
@@ -170,7 +180,7 @@ class MainActivity4 : AppCompatActivity() {
 
                 // Build the display string
                 val resultString = StringBuilder()
-                resultString.append("Prediction: $prediction\nConfidence Percentages:\n")
+                resultString.append("Prediction: $prediction\n")
 
                 confidences?.let {
 //                    // Sort by confidence percentage (descending)
@@ -214,9 +224,10 @@ class MainActivity4 : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("Prediction", "Error calling API", e)
                 withContext(Dispatchers.Main) {
+
                     Toast.makeText(
                         this@MainActivity4,
-                        "Error: ${e.message}",
+                        "    Error: ${e.message} \n" + "Wait for 2-3 Minutes",
                         Toast.LENGTH_LONG
                     ).show()
                 }

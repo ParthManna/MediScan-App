@@ -44,9 +44,10 @@
                 android:layout_marginBottom="4dp" />
 
             <TextView
+                android:id="@+id/scandate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Image processed on 4/9/2025"
+                android:text="Image processed.........."
                 android:textSize="14sp"
                 android:textColor="#888888"
                 android:layout_marginBottom="12dp" />
@@ -124,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#1B5E20"
                     android:textSize="16sp"
-                    android:text="Prediction: _________"
+                    android:text="Analyzing image, please wait..."
                     android:textStyle="bold"
                     android:padding="16dp"
                     android:background="#E8F5E9"
@@ -165,6 +166,7 @@
                 android:gravity="center">
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/backhome"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"

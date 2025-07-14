@@ -34,7 +34,7 @@ class MainActivity9 : AppCompatActivity() {
 
         // Set back button click listener
         findViewById<ImageView>(R.id.backButton).setOnClickListener {
-            startActivity(Intent(this, MainActivity6::class.java))
+            startActivity(Intent(this, MainActivity4::class.java))
         }
 
         findViewById<TextView>(R.id.learnMoreText).setOnClickListener {

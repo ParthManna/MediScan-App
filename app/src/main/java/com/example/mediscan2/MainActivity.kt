@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         return withTimeoutOrNull(timeoutMillis) {
             var session = supabase.auth.currentSessionOrNull()
             while (session == null) {
-                delay(50) // Small delay between checks
+                delay(20) // Small delay between checks
                 session = supabase.auth.currentSessionOrNull()
             }
             session

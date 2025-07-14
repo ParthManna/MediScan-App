@@ -1,19 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splashLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".splash_screen">
+    android:background="@color/black"
+    android:padding="24dp">
 
+    <!-- Top image (centered vertically a bit higher) -->
     <ImageView
         android:id="@+id/splashImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        android:src="@drawable/mediscan_splash_screen" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:layout_gravity="center"
+        android:src="@drawable/mediscan"
+        android:adjustViewBounds="true" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+
+</FrameLayout>
