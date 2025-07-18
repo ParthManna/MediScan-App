@@ -114,6 +114,8 @@ fun EmailAuthScreen(
         }
     }
 
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -158,7 +160,25 @@ fun EmailAuthScreen(
                 onClearError = { authViewModel.clearError() }
             )
 
-            Spacer(modifier = Modifier.height(35.dp))
+            if (!isSignUpMode) {
+                TextButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            authViewModel.resetPassword(emailValue)
+                        }
+                    },
+                    enabled = emailValue.isNotBlank(),
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = Color.White,
+                        disabledContentColor = Color.Gray // makes it visible when disabled
+                    )
+
+                ) {
+                    Text("Forgot Password?")
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
 
             AuthButton(
                 text = if (isSignUpMode) "Sign up" else "Sign in",
@@ -189,8 +209,26 @@ fun EmailAuthScreen(
 
             when (authState) {
                 is AuthState.LOADING -> CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+
+                is AuthState.EMAIL_SENT -> {
+                    Text(
+                        text = (authState as AuthState.EMAIL_SENT).message,
+                        color = Color.Green,
+                        modifier = Modifier.padding(top = 16.dp)
+                    )
+                }
+
+                is AuthState.ERROR -> {
+                    Text(
+                        text = (authState as AuthState.ERROR).message,
+                        color = Color.Red,
+                        modifier = Modifier.padding(top = 16.dp)
+                    )
+                }
+
                 else -> {}
             }
+
 
 
         }
@@ -358,8 +396,14 @@ fun PasswordInputField(
                 modifier = Modifier.padding(top = 4.dp)
             )
         }
+
+
     }
+
+
 }
+
+
 
 @Composable
 fun AuthButton(text: String, onClick: () -> Unit) {
@@ -440,6 +484,25 @@ class AuthViewModel : ViewModel() {
             )
         }
     }
+
+    suspend fun resetPassword(email: String) {
+        if (!isValidEmail(email)) {
+            _authState.value = AuthState.ERROR("Please enter a valid email address")
+            return
+        }
+        _authState.value = AuthState.LOADING
+        try {
+            supabase.auth.resetPasswordForEmail(email)
+            _authState.value = AuthState.EMAIL_SENT("Password reset link sent to $email")
+        } catch (e: Exception) {
+            _authState.value = AuthState.ERROR("Failed to send reset email: ${e.message}")
+        }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
 
 
     fun clearError() {
