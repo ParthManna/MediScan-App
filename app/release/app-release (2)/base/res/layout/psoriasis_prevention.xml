@@ -1,0 +1,40 @@
+
+–
+;
+android*http://schemas.android.com/apk/res/androidLinearLayout"K
+*http://schemas.android.com/apk/res/androidpadding16dp"(Õ„2:h "`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"R
+*http://schemas.android.com/apk/res/androidorientationvertical"(Ä„2:0*
+”TextView"W
+*http://schemas.android.com/apk/res/androidlayout_marginBottom16dp"(ú„2:h "`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"(˜„2
+¡€”øcolor/black0"²
+*http://schemas.android.com/apk/res/androidtextyâœ“ Comorbidity Screening:  Annual DEXA scans (â†‘osteoporosis risk) âœ“ Lifestyle:  Mediterranean diet â†’ â†“CRP levels(Ï‚„-*Â
+
+¹
+TextView"L
+*http://schemas.android.com/apk/res/android	clickabletrue"$(å„2:@"J
+*http://schemas.android.com/apk/res/androidpadding5dp"$(Õ„2:h
+"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"$(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"$(õ„2:0þÿÿÿÿÿÿÿÿ"g
+*http://schemas.android.com/apk/res/android	textColor@color/black"$(˜„2
+¡€”øcolor/black0"T
+*http://schemas.android.com/apk/res/androidlayout_marginTop16dp"$(ø„2:h "L
+*http://schemas.android.com/apk/res/android	focusabletrue"$(Ú„2:@"Ž
+*http://schemas.android.com/apk/res/android
+foreground?attr/selectableItemBackground"$(‰‚„2+
+)Ö‡Œøattr/selectableItemBackground0"L
+*http://schemas.android.com/apk/res/androidgravitycenter"$(¯„2:8"–
+*http://schemas.android.com/apk/res/android
+background#@drawable/text_clickable_background"$(Ô„2.
+,„‚œø"drawable/text_clickable_background0"
+*http://schemas.android.com/apk/res/androiddrawableStart@drawable/external_link"$(’‡„2"
+ —œødrawable/external_link0"k
+*http://schemas.android.com/apk/res/androidid@+id/learnMoreText"$(Ð„2
+’‚ øid/learnMoreText0"X
+*http://schemas.android.com/apk/res/androidtextLearn more from trusted sources(Ï‚„$>

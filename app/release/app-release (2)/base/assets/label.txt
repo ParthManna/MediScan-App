@@ -1,0 +1,7 @@
+Acne
+Eczema
+Psoriasis
+Warts
+SkinCancer
+Unknown_Normal
+

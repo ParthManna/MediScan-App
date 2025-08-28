@@ -1,0 +1,81 @@
+
+Ÿ*
+;
+android*http://schemas.android.com/apk/res/androidLinearLayout"K
+*http://schemas.android.com/apk/res/androidpadding16dp"(Õ„2:h "`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"R
+*http://schemas.android.com/apk/res/androidorientationvertical"(Ä„2:0*€
+÷TextView"V
+*http://schemas.android.com/apk/res/androidlayout_marginBottom8dp"(ú„2:h"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"(˜„2
+¡€”øcolor/black0"–
+*http://schemas.android.com/apk/res/androidtext]Treatment for dermatitis depends on the type, severity, and cause. Common treatments include:(Ï‚„,*·
+®TextView"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"(˜„2
+¡€”øcolor/black0"X
+*http://schemas.android.com/apk/res/androidtext- Topical corticosteroid creams(Ï‚„"L
+*http://schemas.android.com/apk/res/android	textStylebold"(—„2:8#*­
+¤TextView"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"(˜„2
+¡€”øcolor/black0"N
+*http://schemas.android.com/apk/res/androidtext- Oral antihistamines(Ï‚„"L
+*http://schemas.android.com/apk/res/android	textStylebold"(—„2:8#*«
+¢TextView"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"&(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"&(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"&(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"&(˜„2
+¡€”øcolor/black0"L
+*http://schemas.android.com/apk/res/androidtext- Avoiding triggers(Ï‚„"L
+*http://schemas.android.com/apk/res/android	textStylebold"&(—„2:8&#*‰
+€TextView"W
+*http://schemas.android.com/apk/res/androidlayout_marginBottom16dp"/(ú„2:h "`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"/(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"/(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"/(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"/(˜„2
+¡€”øcolor/black0"Q
+*http://schemas.android.com/apk/res/androidtext- Moisturizing regularly(Ï‚„"L
+*http://schemas.android.com/apk/res/android	textStylebold"/(—„2:8/-*ÿ
+öTextView"W
+*http://schemas.android.com/apk/res/androidlayout_marginBottom16dp"7(ú„2:h "`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"7(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"7(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"7(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"7(˜„2
+¡€”øcolor/black0"”
+*http://schemas.android.com/apk/res/androidtext[A dermatologist can provide a personalized treatment plan based on your specific condition.(Ï‚„7-*Â
+
+¹
+TextView"L
+*http://schemas.android.com/apk/res/android	clickabletrue"F(å„2:@"J
+*http://schemas.android.com/apk/res/androidpadding5dp"F(Õ„2:h
+"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"F(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"F(õ„2:0þÿÿÿÿÿÿÿÿ"g
+*http://schemas.android.com/apk/res/android	textColor@color/black"F(˜„2
+¡€”øcolor/black0"T
+*http://schemas.android.com/apk/res/androidlayout_marginTop16dp"F(ø„2:h "L
+*http://schemas.android.com/apk/res/android	focusabletrue"F(Ú„2:@"Ž
+*http://schemas.android.com/apk/res/android
+foreground?attr/selectableItemBackground"F(‰‚„2+
+)Ö‡Œøattr/selectableItemBackground0"L
+*http://schemas.android.com/apk/res/androidgravitycenter"F(¯„2:8"–
+*http://schemas.android.com/apk/res/android
+background#@drawable/text_clickable_background"F(Ô„2.
+,„‚œø"drawable/text_clickable_background0"
+*http://schemas.android.com/apk/res/androiddrawableStart@drawable/external_link"F(’‡„2"
+ —œødrawable/external_link0"k
+*http://schemas.android.com/apk/res/androidid@+id/learnMoreText"F(Ð„2
+’‚ øid/learnMoreText0"X
+*http://schemas.android.com/apk/res/androidtextLearn more from trusted sources(Ï‚„F>

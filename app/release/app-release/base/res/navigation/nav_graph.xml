@@ -1,0 +1,33 @@
+
+ÿ
+;
+android*http://schemas.android.com/apk/res/android.
+4
+app'http://schemas.android.com/apk/res-auto.
+navigation"v
+'http://schemas.android.com/apk/res-autostartDestination@id/FirstFragment"(‘ˆŒø2
+†€ øid/FirstFragment0"c
+*http://schemas.android.com/apk/res/androidid@+id/nav_graph"(Ğ„2
+Ş‚ øid/nav_graph0*
+„fragment"\
+*http://schemas.android.com/apk/res/androidname#com.example.mediscan2.FirstFragment(ƒ€„"k
+*http://schemas.android.com/apk/res/androidid@+id/FirstFragment"(Ğ„2
+†€ øid/FirstFragment0"ƒ
+*http://schemas.android.com/apk/res/androidlabel@string/first_fragment_label"(€„2'
+%Á€Äøstring/first_fragment_label0*¦
+action"s
+'http://schemas.android.com/apk/res-autodestination@id/SecondFragment"(ƒŒø2
+‘€ øid/SecondFragment0"
+*http://schemas.android.com/apk/res/androidid+@+id/action_FirstFragment_to_SecondFragment"(Ğ„25
+3»€ ø)id/action_FirstFragment_to_SecondFragment04/*
+‡fragment"]
+*http://schemas.android.com/apk/res/androidname$com.example.mediscan2.SecondFragment(ƒ€„"m
+*http://schemas.android.com/apk/res/androidid@+id/SecondFragment"(Ğ„2
+‘€ øid/SecondFragment0"…
+*http://schemas.android.com/apk/res/androidlabel@string/second_fragment_label"(€„2(
+&Š‚Äøstring/second_fragment_label0*¤
+›action"q
+'http://schemas.android.com/apk/res-autodestination@id/FirstFragment"(ƒŒø2
+†€ øid/FirstFragment0"
+*http://schemas.android.com/apk/res/androidid+@+id/action_SecondFragment_to_FirstFragment"(Ğ„25
+3¼€ ø)id/action_SecondFragment_to_FirstFragment030.

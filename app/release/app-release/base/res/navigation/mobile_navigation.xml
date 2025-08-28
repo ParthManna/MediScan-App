@@ -1,0 +1,29 @@
+
+›
+;
+android*http://schemas.android.com/apk/res/android*
+4
+app'http://schemas.android.com/apk/res-auto*
+navigation"m
+'http://schemas.android.com/apk/res-autostartDestination@+id/nav_home"(‘ˆŒø2
+ß‚ øid/nav_home0"s
+*http://schemas.android.com/apk/res/androidid@+id/mobile_navigation"(Ğ„2 
+¼‚ øid/mobile_navigation0*Õ
+Ìfragment"n
+*http://schemas.android.com/apk/res/androidname5com.parthasarathimanna.mediscan2.ui.home.HomeFragment(ƒ€„"a
+*http://schemas.android.com/apk/res/androidid@+id/nav_home"(Ğ„2
+ß‚ øid/nav_home0"m
+*http://schemas.android.com/apk/res/androidlabel@string/menu_home"(€„2
+±Äøstring/menu_home00*ç
+Şfragment"t
+*http://schemas.android.com/apk/res/androidname;com.parthasarathimanna.mediscan2.ui.gallery.GalleryFragment(ƒ€„"g
+*http://schemas.android.com/apk/res/androidid@+id/nav_gallery"(Ğ„2
+İ‚ øid/nav_gallery0"s
+*http://schemas.android.com/apk/res/androidlabel@string/menu_gallery"(€„2
+°Äøstring/menu_gallery03*ó
+êfragment"x
+*http://schemas.android.com/apk/res/androidname?com.parthasarathimanna.mediscan2.ui.slideshow.SlideshowFragment(ƒ€„"k
+*http://schemas.android.com/apk/res/androidid@+id/nav_slideshow"(Ğ„2
+ä‚ øid/nav_slideshow0"w
+*http://schemas.android.com/apk/res/androidlabel@string/menu_slideshow"(€„2!
+²Äøstring/menu_slideshow05*

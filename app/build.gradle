@@ -6,36 +6,35 @@ plugins {
 }
 
 android {
-    namespace 'com.example.mediscan2'
-    compileSdk 35
+    namespace 'com.parthasarathimanna.mediscan2'
+    compileSdk 36
 
     defaultConfig {
-        applicationId "com.example.mediscan2"
+        applicationId "com.parthasarathimanna.mediscan2"
         minSdk 24
         targetSdk 35
-        versionCode 1
-        versionName "1.0"
-
-        ndk {
-            abiFilters "arm64-v8a"  // Or only the ABI you need
-        }
+        versionCode 2
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE' // or 'FULL' for detailed symbols
+            }
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
     buildFeatures {
         viewBinding true
@@ -131,6 +130,8 @@ dependencies {
     implementation libs.androidx.material.icons.extended
 
     implementation 'androidx.core:core-ktx:1.12.0'
+
+    implementation libs.androidx.work.runtime.ktx
 
 
 }

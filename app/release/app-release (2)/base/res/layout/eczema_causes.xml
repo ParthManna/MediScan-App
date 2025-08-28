@@ -1,0 +1,77 @@
+
+‰(
+;
+android*http://schemas.android.com/apk/res/androidLinearLayout"K
+*http://schemas.android.com/apk/res/androidpadding16dp"(Õ„2:h "`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"R
+*http://schemas.android.com/apk/res/androidorientationvertical"(Ä„2:0*á
+ØTextView"V
+*http://schemas.android.com/apk/res/androidlayout_marginBottom8dp"(ú„2:h"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"(˜„2
+¡€”øcolor/black0"x
+*http://schemas.android.com/apk/res/androidtext?Dermatitis is typically caused by one or more of these factors:(Ï‚„,*ð
+çTextView"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"(˜„2
+¡€”øcolor/black0"_
+*http://schemas.android.com/apk/res/androidtext&- Contact with an irritating substance(Ï‚„"*Þ
+ÕTextView"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"(˜„2
+¡€”øcolor/black0"M
+*http://schemas.android.com/apk/res/androidtext- Allergic reactions(Ï‚„"*Û
+ÒTextView"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"$(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"$(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"$(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"$(˜„2
+¡€”øcolor/black0"J
+*http://schemas.android.com/apk/res/androidtext- Genetic factors(Ï‚„$"*º
+±TextView"W
+*http://schemas.android.com/apk/res/androidlayout_marginBottom16dp",(ú„2:h "`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent",(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content",(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp",(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black",(˜„2
+¡€”øcolor/black0"P
+*http://schemas.android.com/apk/res/androidtext- Environmental factors(Ï‚„,-*½
+´TextView"W
+*http://schemas.android.com/apk/res/androidlayout_marginBottom16dp"5(ú„2:h "`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"5(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"5(õ„2:0þÿÿÿÿÿÿÿÿ"L
+*http://schemas.android.com/apk/res/androidtextSize16sp"5(•„2:h‚ "g
+*http://schemas.android.com/apk/res/android	textColor@color/black"5(˜„2
+¡€”øcolor/black0"Ò
+*http://schemas.android.com/apk/res/androidtext˜The exact cause depends on the type of dermatitis. Some people have a genetic tendency to develop certain dermatitis conditions, like atopic dermatitis.(Ï‚„5-*Â
+
+¹
+TextView"L
+*http://schemas.android.com/apk/res/android	clickabletrue"D(å„2:@"J
+*http://schemas.android.com/apk/res/androidpadding5dp"D(Õ„2:h
+"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"D(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"D(õ„2:0þÿÿÿÿÿÿÿÿ"g
+*http://schemas.android.com/apk/res/android	textColor@color/black"D(˜„2
+¡€”øcolor/black0"T
+*http://schemas.android.com/apk/res/androidlayout_marginTop16dp"D(ø„2:h "L
+*http://schemas.android.com/apk/res/android	focusabletrue"D(Ú„2:@"Ž
+*http://schemas.android.com/apk/res/android
+foreground?attr/selectableItemBackground"D(‰‚„2+
+)Ö‡Œøattr/selectableItemBackground0"L
+*http://schemas.android.com/apk/res/androidgravitycenter"D(¯„2:8"–
+*http://schemas.android.com/apk/res/android
+background#@drawable/text_clickable_background"D(Ô„2.
+,„‚œø"drawable/text_clickable_background0"
+*http://schemas.android.com/apk/res/androiddrawableStart@drawable/external_link"D(’‡„2"
+ —œødrawable/external_link0"k
+*http://schemas.android.com/apk/res/androidid@+id/learnMoreText"D(Ð„2
+’‚ øid/learnMoreText0"X
+*http://schemas.android.com/apk/res/androidtextLearn more from trusted sources(Ï‚„D>

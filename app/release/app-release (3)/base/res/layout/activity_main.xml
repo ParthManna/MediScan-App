@@ -1,0 +1,28 @@
+
+È
+;
+android*http://schemas.android.com/apk/res/android	
+4
+app'http://schemas.android.com/apk/res-auto	)androidx.drawerlayout.widget.DrawerLayout"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"	(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightmatch_parent"	(õ„2:0ÿÿÿÿÿÿÿÿÿ"T
+*http://schemas.android.com/apk/res/androidfitsSystemWindowstrue"	(İ„2:@"k
+*http://schemas.android.com/apk/res/androidid@+id/drawer_layout"	(Ğ„2
+Ä øid/drawer_layout0*‰
+€include"Elayout@layout/app_bar_main"2!
+ª€¬ølayout/app_bar_main0ÿÿ"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightmatch_parent"(õ„2:0ÿÿÿÿÿÿÿÿÿ"i
+*http://schemas.android.com/apk/res/androidid@+id/app_bar_main"(Ğ„2
+İ€ øid/app_bar_main00*“
+Š5com.google.android.material.navigation.NavigationView"|
+'http://schemas.android.com/apk/res-automenu@menu/activity_main_drawer"(¨†Œø2%
+#€€´ømenu/activity_main_drawer0"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightmatch_parent"(õ„2:0ÿÿÿÿÿÿÿÿÿ"T
+*http://schemas.android.com/apk/res/androidfitsSystemWindowstrue"(İ„2:@"~
+'http://schemas.android.com/apk/res-autoheaderLayout@layout/nav_header_main"(¬„Œø2"
+ ş€¬ølayout/nav_header_main0"a
+*http://schemas.android.com/apk/res/androidid@+id/nav_view"(Ğ„2
+å‚ øid/nav_view0"U
+*http://schemas.android.com/apk/res/androidlayout_gravitystart"(³„2:8ƒ€€1	

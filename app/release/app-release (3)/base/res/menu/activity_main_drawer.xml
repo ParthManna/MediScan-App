@@ -1,0 +1,23 @@
+
+Î
+;
+android*http://schemas.android.com/apk/res/android$menu*ˆ
+ÿgroup"V
+*http://schemas.android.com/apk/res/androidcheckableBehaviorsingle"(àƒ„2:0*İ
+Ôitem"m
+*http://schemas.android.com/apk/res/androidtitle@string/menu_home"
+(áƒ„2
+±Äøstring/menu_home0"z
+*http://schemas.android.com/apk/res/androidicon@drawable/ic_menu_camera"
+(‚€„2#
+!©œødrawable/ic_menu_camera0"a
+*http://schemas.android.com/apk/res/androidid@+id/nav_home"
+(Ğ„2
+ß‚ øid/nav_home0
+1*½
+´item"@
+*http://schemas.android.com/apk/res/androidtitleLogout(áƒ„"‚
+*http://schemas.android.com/apk/res/androidicon@drawable/baseline_logout_24"(‚€„2'
+%œødrawable/baseline_logout_240"e
+*http://schemas.android.com/apk/res/androidid@+id/nav_logout"(Ğ„2
+ã‚ øid/nav_logout0&/$

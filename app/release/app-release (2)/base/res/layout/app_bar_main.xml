@@ -1,0 +1,40 @@
+
+”
+;
+android*http://schemas.android.com/apk/res/android#
+4
+app'http://schemas.android.com/apk/res-auto#3androidx.coordinatorlayout.widget.CoordinatorLayout"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightmatch_parent"(õ„2:0ÿÿÿÿÿÿÿÿÿ*™
+/com.google.android.material.appbar.AppBarLayout"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content"(õ„2:0şÿÿÿÿÿÿÿÿ"“
+*http://schemas.android.com/apk/res/androidtheme$@style/Theme.MediScan2.AppBarOverlay"(€€„2/
+-ı„Èø#style/Theme.MediScan2.AppBarOverlay0*
+ø!androidx.appcompat.widget.Toolbar"z
+*http://schemas.android.com/apk/res/android
+background@drawable/background2"(Ô„2 
+û€œødrawable/background20"`
+*http://schemas.android.com/apk/res/androidlayout_widthmatch_parent"(ô„2:0ÿÿÿÿÿÿÿÿÿ"}
+*http://schemas.android.com/apk/res/androidlayout_height?attr/actionBarSize"(õ„2"
+ †€Œøattr/actionBarSize0À€"”
+'http://schemas.android.com/apk/res-auto
+popupTheme#@style/Theme.MediScan2.PopupOverlay"(¤‡Œø2.
+,ÿ„Èø"style/Theme.MediScan2.PopupOverlay0"_
+*http://schemas.android.com/apk/res/androidid@+id/toolbar"(Ğ„2
+„ ø
+id/toolbar0D>*X
+Pinclude"Elayout@layout/content_main"2!
+­€¬ølayout/content_main0ÿÿ.*®
+¥Ecom.google.android.material.floatingactionbutton.FloatingActionButton"W
+*http://schemas.android.com/apk/res/androidlayout_marginBottom16dp" (ú„2:h "x
+*http://schemas.android.com/apk/res/androidlayout_marginEnd@dimen/fab_margin" (¶‡„2
+”˜ødimen/fab_margin0@"`
+*http://schemas.android.com/apk/res/androidlayout_widthwrap_content" (ô„2:0şÿÿÿÿÿÿÿÿ"a
+*http://schemas.android.com/apk/res/androidlayout_heightwrap_content" (õ„2:0şÿÿÿÿÿÿÿÿ"
+'http://schemas.android.com/apk/res-auto	srcCompat!@android:drawable/ic_dialog_email" (ˆŒø2+
+)©€  android:drawable/ic_dialog_email0"W
+*http://schemas.android.com/apk/res/androidid@+id/fab" (Ğ„2
+× øid/fab0"Z
+*http://schemas.android.com/apk/res/androidlayout_gravity
+bottom|end" (³„2:8Õ€€ =#
